@@ -1,0 +1,54 @@
+.ui-tagging {
+    position: relative;
+    border: 1px solid #B4BBCD;
+    height: auto;
+}
+
+.ui-tagging .ui-tagging-highlight {
+    position: absolute;
+    padding: 5px;
+    overflow: hidden;
+}
+.ui-tagging .ui-tagging-highlight div {
+    color: transparent;
+    font-size: 13px;
+    line-height: 18px;
+    white-space: pre-wrap;
+}
+
+.ui-tagging .ui-tagging-wrap {
+    position: relative;
+    padding: 5px;
+    overflow: hidden;
+    zoom: 1;
+    border: 0;
+}
+
+.ui-tagging div > span {
+    background-color: #D8DFEA;
+    font-weight: normal !important;
+}
+
+.ui-tagging textarea {
+    display: block;
+    font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
+    background: transparent;
+    border-width: 0;
+    font-size: 13px;
+    height: 18px;
+    outline: none;
+    resize: none;
+    vertical-align: top;
+    width: 100%;
+    line-height: 18px;
+    overflow: hidden;
+}
+
+.ui-autocomplete {
+    font-size: 13px;
+    background-color: white;
+    border: 1px solid black;
+    margin-bottom: -5px;
+    width: 0;
+}
+
