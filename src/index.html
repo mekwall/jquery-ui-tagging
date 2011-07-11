@@ -1,0 +1,31 @@
+<html>
+    <head>
+    	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="jquery.ui.tagging.js"></script>
+
+	
+		<link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/smoothness/jquery-ui.css" />		
+		<link type="text/css" rel="stylesheet" href="jquery.ui.tagging.css" />
+		 
+        <script type="text/javascript">
+		$(document).ready(function() {
+        	 var names = [
+		        {
+		            value: 1,
+		            label: "daniel gatis"
+		        }
+		    ];
+		    
+		    $("textarea").tagging({
+		        source: function(request, response) {
+		            	response(names);	
+	            	}
+	        });
+		});
+        </script>
+    </head>
+    <body>
+        <textarea></textarea>
+    </body>
+</html>
