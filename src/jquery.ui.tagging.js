@@ -22,10 +22,10 @@
             this.highlight = $("<div></div>");
             
             this.highlightWrapper = $("<span></span>")
+            	.width(this.element.width())
                 .addClass("ui-corner-all");
 
             this.highlightContainer = $("<div>")
-                .width(this.element.width())
                 .addClass("ui-tagging-highlight")
                 .append(this.highlight);
 
@@ -38,8 +38,8 @@
                 .insertBefore(this.element)
                 .addClass("ui-tagging")
                 .append(
-                    this.highlightContainer, 
-                    this.element.wrap(this.wrapper).parent(), 
+                    this.highlightContainer,
+                    this.element.wrap(this.wrapper).parent(),
                     this.meta
                 );
             
@@ -57,15 +57,19 @@
                 if (e.which == 32 && self.activeSearch) {
                     self.activeSearch = false;
                 }
-            }).bind("expand keyup keydown change", function(e) {
+            }).bind("expand keyup", function(e) {
                 var cur = self.highlight.find("span"),
                     val = self.element.val(),
                     prevHeight = self.element.height(),
                     rowHeight = self.element.css('lineHeight'),
                     newHeight = 0;
+            	spans = {}    
                 cur.each(function(i) {
                     var s = $(this);
-                    val = val.replace(s.text(), $("<div>").append(s).html());
+                    if (!(s.text() in spans)) {
+                    	val = val.replace(new RegExp(s.text(), 'g'), $("<div>").append(s).html());
+                    	spans[s.text()] = 1;
+                	}
                 });
                 self.highlight.html(val);
                 newHeight = self.element.height(rowHeight)[0].scrollHeight;
@@ -73,10 +77,18 @@
                 if (newHeight < initialHeight) {
                     newHeight = initialHeight;
                 }
+                if (!$.browser.mozilla) {
+                    if (self.element.css('paddingBottom') || self.element.css('paddingTop')) {
+                        var padInt =
+                            parseInt(self.element.css('paddingBottom').replace('px', '')) +
+                            parseInt(self.element.css('paddingTop').replace('px', ''));
+                        newHeight -= padInt;
+                    }
+                }
                 self.options.animateResize ?
                     self.element.stop(true, true).animate({
                             height: newHeight
-                        }, self.options.animateDuration) : 
+                        }, self.options.animateDuration) :
                     self.element.height(newHeight);
                 
                 var widget = self.element.autocomplete("widget");
@@ -85,7 +97,7 @@
                         at: "left bottom",
                         of: self.container
                     }).width(self.container.width()-4);
-                
+                                        
             }).autocomplete({
                 minLength: 0,
                 delay: 0,
@@ -100,7 +112,7 @@
                 },
                 source: function(request, response) {
                     if (self.activeSearch) {
-                        self.searchTerm = request.term.substring(self.beginFrom); 
+                        self.searchTerm = request.term.substring(self.beginFrom);
                         if (request.term.substring(self.beginFrom - 1, self.beginFrom) != "@") {
                             self.activeSearch = false;
                             self.beginFrom = 0;
@@ -138,9 +150,8 @@
                                              .text(ui.item.label)
                                              .clone()
                                      ).html()+' ')
-                    );
-                        
-                    self.meta.val((self.meta.val() + " @[" + ui.item.value + ":]").trim());
+                    );     
+                    self.meta.val((self.meta.val() + " @[" + ui.item.value + ":" + ui.item.label +"]").trim());
                     return false;
                 }
             });
