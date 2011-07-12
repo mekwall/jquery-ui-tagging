@@ -19,16 +19,29 @@
             this.wrapper = $("<div>")
                 .addClass("ui-tagging-wrap");
             
-            this.highlight = $("<div></div>");
+            this.highlight = $("<span></span>")
+            	.css({
+            		"direction" : this.element.css("direction"),
+					"font-size-adjust" : this.element.css("font-size-adjust"),
+					"font-size" : this.element.css("font-size"),
+					"font-stretch" : this.element.css("font-stretch"),
+					"font-style" : this.element.css("font-style"),
+					"font-family" : this.element.css("font-family"),
+					"font-variant" : this.element.css("font-variant"),
+					"font-weight" : this.element.css("font-weight"),
+					"letter-spacing" : this.element.css("letter-spacing"),
+					"line-height" :  this.element.css("line-height")
+	        	});
             
-            this.highlightWrapper = $("<span></span>")
-            	.width(this.element.width())
-                .addClass("ui-corner-all");
-
+            this.highlightWrapper = $("<mark></mark>")
+            	.addClass("ui-corner-all");
+			
             this.highlightContainer = $("<div>")
+            	.css({"padding" : '6px'})
+        		.width(this.element.width() - 12)
                 .addClass("ui-tagging-highlight")
                 .append(this.highlight);
-
+			
             this.meta = $("<input>")
                 .attr("type", "hidden")
                 .addClass("ui-tagging-meta");
@@ -57,18 +70,18 @@
                 if (e.which == 32 && self.activeSearch) {
                     self.activeSearch = false;
                 }
-            }).bind("expand keyup", function(e) {
-                var cur = self.highlight.find("span"),
+            }).bind("expand keyup change", function(e) {
+                var cur = self.highlight.find("mark"),
                     val = self.element.val(),
                     prevHeight = self.element.height(),
                     rowHeight = self.element.css('lineHeight'),
                     newHeight = 0;
-            	spans = {}    
+            	marks = {}    
                 cur.each(function(i) {
                     var s = $(this);
-                    if (!(s.text() in spans)) {
+                    if (!(s.text() in marks)) {
                     	val = val.replace(new RegExp(s.text(), 'g'), $("<div>").append(s).html());
-                    	spans[s.text()] = 1;
+                    	marks[s.text()] = 1;
                 	}
                 });
                 self.highlight.html(val);
