@@ -1,54 +1,45 @@
 .ui-tagging {
     position: relative;
-    border: 1px solid #B4BBCD;
+    background-color: #B4BBCD;
     height: auto;
 }
 
 .ui-tagging .ui-tagging-highlight {
     position: absolute;
-    padding: 5px;
     overflow: hidden;
-}
-.ui-tagging .ui-tagging-highlight div {
-    color: transparent;
-    font-size: 13px;
-    line-height: 18px;
     white-space: pre-wrap;
+}
+.ui-tagging .ui-tagging-highlight span {
+    color: transparent;
+    white-space: pre-wrap;
+ 	white-space: pre-wrap; /* css-3 */
+    white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+    white-space: -pre-wrap; /* Opera 4-6 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    word-wrap: break-word; /* Internet Explorer 5.5+ */ 
+    color: red;/*transparent;*/
 }
 
 .ui-tagging .ui-tagging-wrap {
     position: relative;
-    padding: 5px;
     overflow: hidden;
-    zoom: 1;
-    border: 0;
+    border: none;
 }
 
-.ui-tagging div > span {
+.ui-tagging span > mark {
     background-color: #D8DFEA;
-    font-weight: normal !important;
+	color: transparent;
 }
 
 .ui-tagging textarea {
     display: block;
-    font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
     background: transparent;
-    border-width: 0;
-    font-size: 13px;
-    height: 18px;
-    outline: none;
+    border: none;
     resize: none;
     vertical-align: top;
     width: 100%;
-    line-height: 18px;
-    overflow: hidden;
+	outline: none;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
 }
-
-.ui-autocomplete {
-    font-size: 13px;
-    background-color: white;
-    border: 1px solid black;
-    margin-bottom: -5px;
-    width: 0;
-}
-
